@@ -2,6 +2,12 @@
 (function ($) {
     "use strict";
 
+    $(document).keypress(function(e) {
+    if(e.which == 13) {
+        login();
+    }
+});
+
     /*==================================================================
     [ Focus Contact2 ]*/
     $('.input100').each(function(){

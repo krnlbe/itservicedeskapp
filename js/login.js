@@ -3,15 +3,16 @@
 function login() {
 	let username = document.getElementById("username").value;
 	let password = document.getElementById("password").value;
+	let data = {
+		username: username,
+		password: password
+	}
 
 	$.ajax({
 		url: "/logUser",
 		type: "POST",
 		dataType: "json",
-		data: {
-		    username: username,
-		    password: password
-		},
+		data: JSON.stringify(data),
 		contentType: "application/json",
 		cache: false,
 		timeout: 5000,
@@ -23,7 +24,13 @@ function login() {
 		success: function(data) {
 			console.log(data);
 			console.log('process sucess');
-			window.location.replace("/");
+
+			if(data == true) {
+				window.location.replace("/");
+			} else {
+				document.getElementById("wrong").style.display="block";
+			}
+			
 		},
 
 		error: function() {

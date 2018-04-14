@@ -19,21 +19,21 @@ function logUser(username, passwd, callback) {
 
 	con.connect(function(err) {
 		if (err) {
-			console.log(err);
+			throw err;
 		}
 
 		console.log("Connected to " + config.database.db + "!");
 		con.query("SELECT username, password FROM User WHERE username = '" + username + "'", function (err, result, fields) {
-			result = false;
+			let res = false;
 			if (err) { 
-				console.log(err);
+				throw err;
 			}
 
 			if(!isEmpty(result)) {
-				result = (result[0].password.localeCompare(md5(passwd)) == 0);
+				res = (result[0].password.localeCompare(md5(passwd)) == 0);
 			}
 
-			callback(result);
+			callback(res);
 		});
 	});
 }
