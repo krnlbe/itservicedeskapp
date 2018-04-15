@@ -1,13 +1,13 @@
 "use strict";
 
 module.exports = {
-	logUser: logUser
+	signupUser: signUp
 };
 
 let config = require("../config");
 let utils = require("utils");
 
-function logUser(username, passwd, callback) {
+function signUp(firstname, lastname, email, username, passwd, callback) {
 	let mysql = require('mysql');
 
 	let con = mysql.createConnection({
@@ -29,7 +29,7 @@ function logUser(username, passwd, callback) {
 				throw err;
 			}
 
-			if(!utils.isEmpty(result)) {
+			if(!isEmpty(result)) {
 				res = (result[0].password.localeCompare(md5(passwd)) == 0);
 
 				if(res) {

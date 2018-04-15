@@ -3,10 +3,14 @@
     "use strict";
 
     $(document).keypress(function(e) {
-    if(e.which == 13) {
-        login();
-    }
-});
+        if(e.which == 13) {
+            let signin = document.getElementById('signin');
+
+            if(signin) {
+                login();
+            }
+        }
+    });
 
     /*==================================================================
     [ Focus Contact2 ]*/
