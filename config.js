@@ -11,7 +11,8 @@ let config = {
         db:     'itadmin',
         user:   'itadmin',
         passwd: 'itadmin'
-    }
+    },
+    cookieSecret: 'dkjnac$#@RGDV$%GVVC$#r43fn43kncnsakjjfja'
 }
 
 module.exports = config;

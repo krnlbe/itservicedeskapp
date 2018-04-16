@@ -1,11 +1,11 @@
 "use strict";
 
 module.exports = {
-	signupUser: signUp
+	signUp: signUp
 };
 
 let config = require("../config");
-let utils = require("utils");
+let utils = require("./utils");
 
 function signUp(firstname, lastname, email, username, passwd, callback) {
 	let mysql = require('mysql');
@@ -23,19 +23,26 @@ function signUp(firstname, lastname, email, username, passwd, callback) {
 		}
 
 		console.log("Connected to " + config.database.db + "!");
-		con.query("SELECT id, username, password FROM User WHERE username = '" + username + "'", function (err, result, fields) {
+		con.query("SELECT username, email FROM User WHERE username = '" + username + "' OR email = '" + email +"';", function (err, result, fields) {
 			let res = false;
 			if (err) { 
 				throw err;
 			}
 
-			if(!isEmpty(result)) {
-				res = (result[0].password.localeCompare(md5(passwd)) == 0);
+			if(utils.isEmpty(result)) {
+				let queryStatement = "INSERT INTO User (username, firstname, lastname, email, password, created, lastLogin) VALUES ('" 
+										+ username + "', '" + firstname + "', '" + lastname + "', '" + email + "', md5('" + passwd + "'), NOW(), NOW());";  
+				con.query(queryStatement, function (err, result, fields) {
+					if(err) {
+						throw err;
+					}
 
-				if(res) {
-					con.query("UPDATE User SET lastLogin=NOW() WHERE id=" + result[0].id + ";");
-					console.log('Updated "lastLogin" for user ' + result[0].username + '!');
-				}
+					console.log("Added new user '" + username + "' to DB!");
+				});
+
+				res = true;
+			} else {
+				console.log("Tried to add new user '" + username + "', but the user is already stored in the DB!");
 			}
 
 			callback(res);

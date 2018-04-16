@@ -5,7 +5,8 @@ module.exports = {
 };
 
 let config = require("../config");
-let utils = require("utils");
+let utils = require("./utils");
+let md5 = require("md5");
 
 function logUser(username, passwd, callback) {
 	let mysql = require('mysql');
@@ -33,8 +34,13 @@ function logUser(username, passwd, callback) {
 				res = (result[0].password.localeCompare(md5(passwd)) == 0);
 
 				if(res) {
-					con.query("UPDATE User SET lastLogin=NOW() WHERE id=" + result[0].id + ";");
-					console.log('Updated "lastLogin" for user ' + result[0].username + '!');
+					con.query("UPDATE User SET lastLogin=NOW() WHERE id=" + result[0].id + ";", function(err, result, fields) {
+						if(err) {
+							throw err;
+						}
+
+						console.log('Updated "lastLogin" for user ' + result[0].username + '!');
+					});
 				}
 			}
 

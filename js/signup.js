@@ -8,8 +8,9 @@ function signup() {
 	let password = document.getElementsByName("pass")[0].value;
 	let repeatPassword = document.getElementsByName("repeat-pass")[0].value;
 
+	let errMsg = document.getElementById('wrong');
+
 	if(password != repeatPassword) {
-		let errMsg = document.getElementById('wrong');
 		errMsg.textContent = 'Passwords must match!';
 		errMsg.style.display = 'block';
 		return;
@@ -32,7 +33,6 @@ function signup() {
 		cache: false,
 		timeout: 5000,
 		complete: function() {
-		  //called when complete
 		 	console.log('process complete');
 		},
 
@@ -43,7 +43,8 @@ function signup() {
 			if(data == true) {
 				window.location.replace("/");
 			} else {
-				document.getElementById("wrong").style.display="block";
+				errMsg.textContent = 'User already exists!';
+				errMsg.style.display = 'block';
 			}
 			
 		},

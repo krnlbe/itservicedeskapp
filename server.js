@@ -3,92 +3,60 @@
 let http = require('http');
 let fs = require('fs');
 let logUser = require('./node/logUser');
+let signupUser = require('./node/signupUser');
 let config = require('./config');
 let express = require('express');
+let session = require('express-session');
 let app = express();
 let bodyParser = require('body-parser');
+
+let expSession;
 
 app.use(express.static('.'));
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+	secret: config.cookieSecret,
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.get('/', function(request, response) {
-	sendFileContent(response, 'index.html', 'text/html');
+	console.log("Root requested");
+	expSession = request.session;
+	if(expSession.username) {
+		console.log("*" + expSession.username + "*");
+		sendFileContent(response, 'home.html', 'text/html');
+	} else {
+		sendFileContent(response, 'login.html', 'text/html');
+	}
 });
 
 app.get('/login', function(request, response) {
+	expSession = request.session;
 	sendFileContent(response, 'login.html', 'text/html');
 });
 
 app.get('/signup', function(request, response) {
+	expSession = request.session;
 	sendFileContent(response, 'signup.html', 'text/html');
 });
 
 app.post('/logUser', function(request, response) {
-	// console.log('body: ' + JSON.stringify(request.body));
-	// let username = request.body.username;
-
-	// console.log('username: ' + username);
-
+	expSession = request.session;
 	logUser.logUser(request.body.username, request.body.password, function(result){
-		console.log(result + ': ' + request.body.username + ', ' + request.body.password);
+		response.end(result + '');
+	});
+});
+
+app.post('/signupUser', function(request, response) {
+	expSession = request.session;
+	signupUser.signUp(request.body.firstname, request.body.lastname, request.body.email, request.body.username, request.body.password, function(result){
 		response.end(result + '');
 	});
 });
 
 app.listen(8080);
-
-// http.createServer(function(request, response) {
-// 	if(request.method === 'POST') {
-// 		let body = '';
-//         request.on('data', function (data) {
-//             body += data;
-//             if (body.length > 1e6) { 
-//                 request.connection.destroy();
-//             }
-//         });
-//         request.on('end', function () {
-//         	let data = qs.parse(body);
-
-//         	if(request.url.toString() === '/logUser') {
-// 				let logged = logUser.logUser(data.username, data.password, function(result){
-// 					console.log('*' + result + '*');
-// 					response.end(result + '');
-// 				});
-// 			}	
-
-//         });
-// 	} else {
-// 		if(request.url === '/'){
-// 			sendFileContent(response, 'index.html', 'text/html');
-// 		} else if( request.url === '/login'){
-// 			sendFileContent(response, 'login.html', 'text/html');
-// 		} else if( request.url === '/signup'){
-// 			sendFileContent(response, 'signup.html', 'text/html');
-// 		}else if(request.url.toString().endsWith('.js')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'text/javascript');
-// 		} else if(request.url.toString().endsWith('.css')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'text/css');
-// 		} else if(request.url.toString().endsWith('.jpg')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'image/jpeg');
-// 		} else if(request.url.toString().endsWith('.png')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'image/png');
-// 		} else if(request.url.toString().endsWith('.ico')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'image/ico');
-// 		} else if(request.url.toString().includes('.ttf')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'text/ttf');
-// 		} else if(request.url.toString().includes('.woff')){
-// 			sendFileContent(response, request.url.toString().substring(1).split('?')[0], 'text/woff');
-// 		}else if(request.url.toString().endsWith('.js.map')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'text/javascript');
-// 		} else if(request.url.toString().endsWith('.css.map')){
-// 			sendFileContent(response, request.url.toString().substring(1), 'text/css');
-// 		} else{
-// 			console.log('Requested URL:' + request.url.toString());
-// 			response.end();
-// 		}
-// 	}
-// }).listen(config.server.port);
 
 function sendFileContent(response, fileName, contentType){
 	'use strict';

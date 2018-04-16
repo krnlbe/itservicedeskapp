@@ -17,7 +17,6 @@ function login() {
 		cache: false,
 		timeout: 5000,
 		complete: function() {
-		  //called when complete
 		 	console.log('process complete');
 		},
 
