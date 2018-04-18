@@ -12,7 +12,18 @@ let config = {
         user:   'itadmin',
         passwd: 'itadmin'
     },
-    cookieSecret: 'dkjnac$#@RGDV$%GVVC$#r43fn43kncnsakjjfja'
+    cookieSecret: 'dkjnac$#@RGDV$%GVVC$#r43fn43kncnsakjjfja',
+    debug: true,
+    debugType: {
+        info: 'INFO',
+        error: 'ERROR',
+        warning: 'WARN'
+    },
+    debugVerbosity: 0,
+    debugLevel: {
+        terse: 0,
+        verbose: 1
+    }
 }
 
 module.exports = config;

@@ -34,6 +34,32 @@ function login() {
 
 		error: function() {
 	  		console.log('process error');
+	  		window.location.replace("/serverError");
+		},
+	});
+}
+
+function logout() {
+	$.ajax({
+		url: "/logoutUser",
+		type: "POST",
+		dataType: "json",
+		data: "logout",
+		cache: false,
+		timeout: 5000,
+		complete: function() {
+		 	console.log('process complete');
+		},
+
+		success: function(data) {
+			console.log(data);
+			console.log('process sucess');
+			window.location.replace("/");
+		},
+
+		error: function() {
+	  		console.log('process error');
+	  		window.location.replace("/serverError");
 		},
 	});
 }
