@@ -1,15 +1,18 @@
-'user strict';
+'use strict';
 
 let http = require('http');
 let fs = require('fs');
 let logUser = require('./node/logUser');
 let signupUser = require('./node/signupUser');
+let issueProcess = require('./node/issueProcess');
 let config = require('./config');
 let utils = require("./node/utils");
 let express = require('express');
 let session = require('express-session');
 let app = express();
 let bodyParser = require('body-parser');
+let formidable = require('formidable');
+let path = require('path');
 
 let expSession;
 let DEBUG = utils.DEBUG;
@@ -61,6 +64,12 @@ app.get('/serverError', function(request, response) {
 	sendFileContent(response, 'serverError.html', 'text/html');
 });
 
+app.get('/logIssue', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/logIssue');
+
+	sendFileContent(response, 'logIssue.html', 'text/html');
+});
+
 app.post('/logUser', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/logUser');
 
@@ -93,6 +102,45 @@ app.post('/logoutUser', function(request, response) {
 	expSession = request.session;
 	logUser.logoutUser(request);
 	response.end('true');
+});
+
+app.post('/uploadFile', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/uploadFile');
+
+	let form = new formidable.IncomingForm();
+	form.uploadDir = path.join(__dirname, './uploads');
+
+	form.on('file', function(field, file) {
+	    fs.rename(file.path, path.join(form.uploadDir, file.name));
+	});
+
+	form.on('error', function(err) {
+		DEBUG(TERSE, ERROR, 'Could not save uploaded file ' + form.file.name + '!');
+		response.end('false');		
+	});
+
+	form.on('end', function() {
+		response.end('success');
+	});
+
+	form.parse(request);
+});
+
+app.post('/logIssue', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/logIssue');
+
+	expSession = request.session;
+
+	let user = expSession.username;
+	let summary = request.body.summary;
+	let description = request.body.description;
+	let severity = request.body.severity;
+	let priority = request.body.priority;
+	let attach = request.body.file;
+
+	issueProcess.logIssue(user, summary, description, severity, priority, attach, function(result) {
+		response.end(result + '');
+	});
 });
 
 app.listen(config.server.port);

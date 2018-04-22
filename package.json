@@ -30,6 +30,7 @@
         "express": "^4.16.3",
         "express-session": "^1.15.6",
         "font-awesome": "4.7.0",
+        "formidable": "^1.2.1",
         "jquery": "3.3.1",
         "jquery.easing": "^1.4.1",
         "md5": "^2.2.1",

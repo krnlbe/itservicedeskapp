@@ -148,7 +148,7 @@ section h2 {
   }
 }
 
-header.masthead {
+.masthead {
   position: relative;
   width: 100%;
   padding-top: 150px;

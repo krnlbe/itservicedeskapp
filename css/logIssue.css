@@ -1,0 +1,130 @@
+#msform {
+	width: 800px;
+	margin: 50px auto;
+	text-align: center;
+	position: relative;
+	padding: 100px 0 0 0;
+}
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+}
+
+/*inputs*/
+#msform input, #msform textarea {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	color: #2C3E50;
+	font-size: 15px;
+}
+
+/*buttons*/
+.logissue-submit {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	color: #2C3E50;
+	font-size: 13px;
+	width: 100px;
+	background: #dc143c;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+	height: 40px;
+}
+.logissue-submit:hover, .logissue-submit:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #dc143c;
+}
+
+.attach {
+	padding: 15px;
+	margin-bottom: 10px;
+	color: #2C3E50;
+	font-size: 13px;
+	width: 95%;
+	background: #dc143c;
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+	height: 40px;
+	display: inline-block;
+	-webkit-appearance: none;
+}
+.attach:hover, .attach:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #dc143c;
+}
+
+/*headings*/
+.fs-title {
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin-bottom: 10px;
+}
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 13px;
+	color: #dc143c;
+	margin-bottom: 20px;
+	display: none;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 14px;
+   height: 45px;
+   padding: 10px; /* If you add too much padding here, the options won't show in IE */
+   width: 100%;
+   -webkit-appearance: none;
+}
+
+.styled-select.slate {
+   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+   height: 50px;
+   width: 100%;
+   color: black;
+}
+
+.styled-select.slate select {
+   border: 1px solid #ccc;
+   font-size: 16px;
+   height: 50px;
+   width: 100%;
+}
+
+.slate   { background-color: #ddd; }
+
+.slate select   { color: grey; }
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}

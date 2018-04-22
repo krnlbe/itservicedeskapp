@@ -23,6 +23,12 @@ let config = {
     debugLevel: {
         terse: 0,
         verbose: 1
+    },
+    issueStatus: {
+        opened: 'OPEN',
+        inProgress: 'IN PROGRESS',
+        fixed: 'FIXED',
+        closed: 'CLOSED'
     }
 }
 
