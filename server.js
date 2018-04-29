@@ -84,7 +84,7 @@ app.get('/dashboard', function(request, response) {
 
 	// sendFileContent(response, 'pages/dashboard', 'text/html');
 	dashboard.getUserIssues(response, request.session.username, function(result) {
-		// console.log(JSON.stringify(result.userIssues, null, 4));
+		
 		response.render('partials/dashboard', {
 			userIssues: result.userIssues,
 			allIssues: result.allIssues,
