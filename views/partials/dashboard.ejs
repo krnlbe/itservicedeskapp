@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include head %>
+</head>
+<body id="page-top">
+	<% include navbar %>
+
+    <header class="masthead" style="padding: 50px 0px 0px 0px;">
+    	<!-- <div class="container h-100"> -->
+        	<!-- <div class="row h-100"> -->
+        		<table>
+        			<tr>
+        				<td>
+					    	<div id="msform">
+							 	<fieldset>
+							    	<!-- <h2 class="fs-title">Your issues!</h2> -->
+							  	
+							  	<table>
+								  <tr>
+								    <th>Issue ID</th>
+								    <th>Summary</th>
+								    <th>Priority</th>
+								  </tr>
+								  <% userIssues.forEach(function(userIssue) { %>
+								        <tr>
+								        	<td><a href="#" style="color: black;">ITD-<%= userIssue.idIssue %></a></td>
+								        	<td><%= userIssue.summary %></td>
+								        	<td><%= userIssue.priority %></td>
+								        </tr>
+								  <% }); %>
+								</table>
+								</fieldset>
+							</div>
+						</td>
+						<td>
+												    	<div id="msform">
+							 	<fieldset>
+							    	<!-- <h2 class="fs-title">Your issues!</h2> -->
+							  	
+							  	<table>
+								  <tr>
+								    <th>Issue ID</th>
+								    <th>Summary</th>
+								    <th>Priority</th>
+								    <th>Reporter</th>
+								  </tr>
+								  	<% allIssues.forEach(function(issue) { %>
+								        <tr>
+								        	<td><a href="#" style="color: black;">ITD-<%= issue.idIssue %></a></td>
+								        	<td><%= issue.summary %></td>
+								        	<td><%= issue.priority %></td>
+								        	<td><%= issue.reporter %></td>
+								        </tr>
+								  	<% }); %>
+								</table>
+								</fieldset>
+							</div>
+						</td>
+					</tr>
+					<tr>
+        				<td>
+					    	<div id="msform">
+							 	<fieldset>
+							 		<div id="piechart"></div>
+							    	<script type="text/javascript">
+										google.charts.load('current', {'packages':['corechart']});
+										google.charts.setOnLoadCallback(drawChart);
+
+										// Draw the chart and set the chart values
+										function drawChart() {
+											var dataArray = [];
+											dataArray.push(['Issues Status', 'Number of Issues']);
+											<% issuesStatus.forEach(function(issue) { %>
+											dataArray.push(['<%= issue.status %>', <%= issue.numbers %>]);
+											<% }); %>
+
+										  var data = google.visualization.arrayToDataTable(dataArray);
+
+										  // Optional; add a title and set the width and height of the chart
+										  var options = {'title':'Status of Issues', 'width':550, 'height':300};
+
+										  // Display the chart inside the <div> element with id="piechart"
+										  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+										  chart.draw(data, options);
+										}	
+									</script>
+							    </fieldset>
+							</div>
+						</td>
+						<td>
+							<div id="msform">
+							 	<fieldset>
+							    	<div id="columnchart"></div>
+							    	<script type="text/javascript">
+										google.charts.load('current', {'packages':['corechart']});
+										google.charts.setOnLoadCallback(drawChart);
+
+										// Draw the chart and set the chart values
+										function drawChart() {
+											var dataArray = [];
+											dataArray.push(['Issues Priority', 'Number of Issues', {role: 'style'}]);
+											<% issuesPriority.forEach(function(issue) { %>
+											dataArray.push(['<%= issue.priority %>', <%= issue.numbers %>, 'color: ' + '#'+(Math.random()*0xFFFFFF<<0).toString(16)]);
+											<% }); %>
+
+										  var data = google.visualization.arrayToDataTable(dataArray);
+
+										  // Optional; add a title and set the width and height of the chart
+										  var options = {'title':'Priority of Issues', 'width':550, 'height':300};
+
+										  // Display the chart inside the <div> element with id="piechart"
+										  var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
+										  chart.draw(data, options);
+										}	
+									</script>
+								</fieldset>
+							</div>
+						</td>
+					</tr>
+				</table>
+			<!-- </div> -->
+		<!-- </div> -->
+	</header>
+
+	<div id="successModal" class="modal">
+
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">&times;</span>
+	      <h2>Successfully logged issue!</h2>
+	    </div>
+	    <div class="modal-body">
+	      <p>The issue has been successfully logged!</p>
+	      <p>Our team will take a look at it in no time!</p>
+	      <button id="modalOk" class="logissue-submit">OK</button>
+	    </div>
+	  </div>
+
+	</div>
+
+	<% include footer %>
+	<% include script %>
+
+</body>
+</html>

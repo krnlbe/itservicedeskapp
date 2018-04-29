@@ -89,8 +89,20 @@ function submit() {
           console.log('process sucess');
 
           if(data == true) {
-            alert('success');
-            window.location.replace("/");
+            let modal = document.getElementById('successModal');
+            modal.style.display = "block";
+
+            let btn = document.getElementById("modalOk");
+
+            let span = document.getElementsByClassName("close")[0];
+
+            btn.onclick = function() {
+              window.location.replace("/");
+            }
+
+            span.onclick = function() {
+              window.location.replace("/");
+            }
           } else {
             errMsg = 'An error was encountered while sending the data to the server';
 
@@ -113,3 +125,9 @@ function submit() {
 function cancel() {
   window.location.replace("/");
 }
+
+let uploadInput = document.getElementById('uploadFile');
+uploadInput.onchange = function addAttachIcon() {
+  let uploadButton = document.getElementById('attach');
+  uploadButton.innerHTML = 'Attach File <img src="/images/icons/attach.png" width=26 height=26>';
+};

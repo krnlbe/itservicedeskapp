@@ -44,13 +44,13 @@ function logIssue(user, summary, description, severity, priority, attach, callba
 						let reporter = result[0].id;
 
 						if(attach) {
-							query = "INSERT INTO Issue (summary, description, severity, priority, reporter, assignee, status, attach) VALUES ('"
+							query = "INSERT INTO Issue (summary, description, severity, priority, reporter, assignee, status, attach, created, updated) VALUES ('"
 										+ summary + "', '" + description + "', '" + severity + "', '" + priority + "', '" + reporter + "', '" 
-										+ 1 + "', '" + status + "', '" + attach + "');";
+										+ 1 + "', '" + status + "', '" + attach + "', NOW(), NOW());";
 						} else {
-							query = "INSERT INTO Issue (summary, description, severity, priority, reporter, assignee, status, attach) VALUES ('"
+							query = "INSERT INTO Issue (summary, description, severity, priority, reporter, assignee, status, attach, created, updated) VALUES ('"
 										+ summary + "', '" + description + "', '" + severity + "', '" + priority + "', '" + reporter + "', '" 
-										+ 1 + "', '" + status + "', 'NULL');";
+										+ 1 + "', '" + status + "', 'NULL', NOW(), NOW());";
 						}
 
 						con.query(query, function(err, result, fields) {
