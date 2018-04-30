@@ -16,6 +16,8 @@ let formidable = require('formidable');
 let path = require('path');
 
 let expSession;
+
+let servePage = utils.servePage;
 let DEBUG = utils.DEBUG;
 let INFO = config.debugType.info;
 let WARN = config.debugType.warning;
@@ -36,62 +38,32 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port);
-
-	expSession = request.session;
-	if(expSession.username) {
-		DEBUG(TERSE, INFO, 'Session available for "' + expSession.username + '". Sending Home page.');
-		// sendFileContent(response, 'home.html', 'text/html');
-		response.render('pages/home');
-	} else {
-		DEBUG(TERSE, INFO, 'User is not logged in. Will redirect to "login" page.');
-		// sendFileContent(response, 'login.html', 'text/html');
-		response.render('pages/login');
-	}
+	servePage(request, response, 'pages/home');
 });
 
 app.get('/login', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/login');
-
-	expSession = request.session;
-	response.render('pages/login');
-	// sendFileContent(response, 'views/pages/login.html', 'text/html');
+	servePage(request, response, 'pages/login');
 });
 
 app.get('/signup', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/singup');
-
-	expSession = request.session;
-	// sendFileContent(response, 'pages/signup', 'text/html');
 	response.render('pages/signup');
 });
 
 app.get('/serverError', function(request, response) {
 	DEBUG(TERSE, ERROR, request.method + ' ' + config.server.host + ':' + config.server.port + '/serverError');
-
-	// sendFileContent(response, 'pages/serverError', 'text/html');
 	response.render('pages/serverError');
 });
 
 app.get('/logIssue', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/logIssue');
-
-	// sendFileContent(response, 'pages/logIssue', 'text/html');
-	response.render('pages/logIssue');
+	servePage(request, response, 'pages/logIssue');
 });
 
 app.get('/dashboard', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/dashboard');
-
-	// sendFileContent(response, 'pages/dashboard', 'text/html');
-	dashboard.getUserIssues(response, request.session.username, function(result) {
-		
-		response.render('partials/dashboard', {
-			userIssues: result.userIssues,
-			allIssues: result.allIssues,
-			issuesStatus: result.issuesStatus,
-			issuesPriority: result.issuesPriority
-		});
-	});
+	servePage(request, response, 'pages/dashboard');
 });
 
 app.post('/logUser', function(request, response) {
@@ -168,18 +140,3 @@ app.post('/logIssue', function(request, response) {
 });
 
 app.listen(config.server.port);
-
-function sendFileContent(response, fileName, contentType) {
-	'use strict';
-	fs.readFile(fileName, function(err, data) {
-		if(err) {
-			response.writeHead(404);
-			response.write('Not Found!');
-		} else {
-			response.writeHead(200, {'Content-Type': contentType});
-			response.write(data);
-		}
-
-		response.end();
-	});
-}

@@ -38,7 +38,7 @@ function logIssue(user, summary, description, severity, priority, attach, callba
 				let res = false;
 				if (err) { 
 					DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
-					utils.serveError(reponse);
+					utils.serveError(response);
 				} else {
 					if(!utils.isEmpty(result)) {
 						let reporter = result[0].id;

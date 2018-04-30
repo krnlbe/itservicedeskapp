@@ -24,7 +24,7 @@
 								  </tr>
 								  <% userIssues.forEach(function(userIssue) { %>
 								        <tr>
-								        	<td><a href="#" style="color: black;">ITD-<%= userIssue.idIssue %></a></td>
+								        	<td><a href="#" style="color: black; text-decoration: underline;">ITD-<%= userIssue.idIssue %></a></td>
 								        	<td><%= userIssue.summary %></td>
 								        	<td><%= userIssue.priority %></td>
 								        </tr>
@@ -47,7 +47,7 @@
 								  </tr>
 								  	<% allIssues.forEach(function(issue) { %>
 								        <tr>
-								        	<td><a href="#" style="color: black;">ITD-<%= issue.idIssue %></a></td>
+								        	<td><a href="#" style="color: black; text-decoration: underline;">ITD-<%= issue.idIssue %></a></td>
 								        	<td><%= issue.summary %></td>
 								        	<td><%= issue.priority %></td>
 								        	<td><%= issue.reporter %></td>
@@ -101,7 +101,7 @@
 											var dataArray = [];
 											dataArray.push(['Issues Priority', 'Number of Issues', {role: 'style'}]);
 											<% issuesPriority.forEach(function(issue) { %>
-											dataArray.push(['<%= issue.priority %>', <%= issue.numbers %>, 'color: ' + '#'+(Math.random()*0xFFFFFF<<0).toString(16)]);
+											dataArray.push(['<%= issue.priority %>', <%= issue.numbers %>, 'color: ' + '#'+(Math.random()*0xFFFFF0<<0).toString(16)]);
 											<% }); %>
 
 										  var data = google.visualization.arrayToDataTable(dataArray);

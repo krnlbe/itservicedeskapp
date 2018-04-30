@@ -7,7 +7,7 @@ module.exports = {
 let config = require("../config");
 let utils = require("./utils");
 
-let DEBUG = utils.DEBUG;
+let DEBUG = utils.DEBUG; 
 let INFO = config.debugType.info;
 let WARN = config.debugType.warning;
 let ERROR = config.debugType.error;
@@ -77,8 +77,8 @@ function getUserIssues(response, username, callback) {
 													} else {
 														if(!utils.isEmpty(result4)) {
 															let issuesPriority = [];
-															for(let i = 0; i < result3.length; i++) {
-																issuesPriority.push({status: result4[i].status, numbers: result4[i].numbers});
+															for(let i = 0; i < result4.length; i++) {
+																issuesPriority.push({priority: result4[i].priority, numbers: result4[i].numbers});
 															}
 
 															let sqlData = {

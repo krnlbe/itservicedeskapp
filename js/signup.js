@@ -10,6 +10,12 @@ function signup() {
 
 	let errMsg = document.getElementById('wrong');
 
+	if(firstname == '' || lastname == '' || email == '' || username == '' || password == '') {
+		errMsg.textContent = 'All fields are mandatory!';
+		errMsg.style.display = 'block';
+		return;
+	}
+
 	if(password != repeatPassword) {
 		errMsg.textContent = 'Passwords must match!';
 		errMsg.style.display = 'block';
