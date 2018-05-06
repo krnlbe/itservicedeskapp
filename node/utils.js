@@ -9,6 +9,7 @@ module.exports = {
 
 let config = require('../config.js');
 let dashboard = require('./dashboard');
+let issueProcess = require('./issueProcess');
 
 let INFO = config.debugType.info;
 let WARN = config.debugType.warning;
@@ -36,13 +37,23 @@ function servePage(request, response, page) {
 	let expSession = request.session;
 	if(expSession.username) {
 		debug(TERSE, INFO, 'Session available for "' + expSession.username + '". Sending page.');
-		if(page == 'pages/dashboard') {
+		if(page == 'partials/dashboard') {
 			dashboard.getUserIssues(response, request.session.username, function(result) {
-				response.render('partials/dashboard', {
+				response.render(page, {
 					userIssues: result.userIssues,
 					allIssues: result.allIssues,
 					issuesStatus: result.issuesStatus,
 					issuesPriority: result.issuesPriority
+				});
+			});
+		} else if(page == 'partials/issue') {
+			let fields = request.url.split("-");
+			let idIssue = fields[1];
+			issueProcess.getIssue(response, idIssue, function(result) {
+				response.render(page, {
+					issueData: result.issueData,
+					reporter: result.reporter,
+					assignee: result.assignee
 				});
 			});
 		} else {

@@ -63,7 +63,12 @@ app.get('/logIssue', function(request, response) {
 
 app.get('/dashboard', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/dashboard');
-	servePage(request, response, 'pages/dashboard');
+	servePage(request, response, 'partials/dashboard');
+});
+
+app.get('/ITSD-*', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + request.url);
+	servePage(request, response, 'partials/issue');
 });
 
 app.post('/logUser', function(request, response) {

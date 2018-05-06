@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<% include head %>
+	<link href="css/dashboard.css" rel="stylesheet">
 </head>
 <body id="page-top">
 	<% include navbar %>
@@ -24,7 +25,7 @@
 								  </tr>
 								  <% userIssues.forEach(function(userIssue) { %>
 								        <tr>
-								        	<td><a href="#" style="color: black; text-decoration: underline;">ITD-<%= userIssue.idIssue %></a></td>
+								        	<td><a href="/ITSD-<%= userIssue.idIssue %>" style="color: black; text-decoration: underline;">ITSD-<%= userIssue.idIssue %></a></td>
 								        	<td><%= userIssue.summary %></td>
 								        	<td><%= userIssue.priority %></td>
 								        </tr>
@@ -47,7 +48,7 @@
 								  </tr>
 								  	<% allIssues.forEach(function(issue) { %>
 								        <tr>
-								        	<td><a href="#" style="color: black; text-decoration: underline;">ITD-<%= issue.idIssue %></a></td>
+								        	<td><a href="/ITSD-<%= issue.idIssue %>" style="color: black; text-decoration: underline;">ITSD-<%= issue.idIssue %></a></td>
 								        	<td><%= issue.summary %></td>
 								        	<td><%= issue.priority %></td>
 								        	<td><%= issue.reporter %></td>
@@ -122,24 +123,7 @@
 			<!-- </div> -->
 		<!-- </div> -->
 	</header>
-
-	<div id="successModal" class="modal">
-
-	  <!-- Modal content -->
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <span class="close">&times;</span>
-	      <h2>Successfully logged issue!</h2>
-	    </div>
-	    <div class="modal-body">
-	      <p>The issue has been successfully logged!</p>
-	      <p>Our team will take a look at it in no time!</p>
-	      <button id="modalOk" class="logissue-submit">OK</button>
-	    </div>
-	  </div>
-
-	</div>
-
+	
 	<% include footer %>
 	<% include script %>
 

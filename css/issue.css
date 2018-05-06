@@ -1,0 +1,184 @@
+.bgr {
+  position: relative;
+  width: 100%;
+  /*height: 100%*/
+  /*padding-top: 150px;*/
+  /*padding-bottom: 00px;*/
+  /*height: 100%;*/
+  color: #dc143c;
+  background: url("../img/bg-pattern.png"), #7b4397;
+  background: url("../img/bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc2430);
+  background: url("../img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+  /*overflow: auto;*/
+}
+
+#msform {
+	width: 60%;
+	/*height: 100%;*/
+	margin: 30px auto;
+	/*text-align: center;*/
+	/*position: relative;*/
+	padding: 30px 0 0 0;
+	/*overflow:auto;*/
+	margin-bottom: 0px;
+}
+
+#issueContent {
+	background-color: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 20px;
+	box-sizing: border-box;
+	width: 100%;
+	/*height: 100%;*/
+	overflow: auto;
+}
+
+hr {
+  width: 100%;
+  display: inline-block;
+}
+
+.header {
+	width: 100%;
+	/*height: 140px;*/
+	border-bottom: 2px solid #dc143c;
+}
+
+.header-logo {
+	float: left; 
+	width: 10%;
+}
+
+.issue-title {
+	color: #dc143c;
+	text-align: left;
+	width: 90%;
+}
+
+.issue-title a {
+	color: #dc143c;
+}
+
+.issue-title a:hover {
+	color: magenta;
+}
+
+.issue-summary {
+	color: black;
+	text-align: left;
+	font-size: 30px;
+	width: 90%;
+}
+
+.issue-actions {
+	width: 100%;
+	/*height: 100%;*/
+	float: left;
+}
+
+.action-button {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	color: #2C3E50;
+	font-size: 13px;
+	width: 100px;
+	background: #dc143c;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+	height: 40px;
+	float: left;
+}
+.action-button:hover, .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #dc143c;
+}
+
+.issueBody {
+	width: 100%;
+    float: left;
+    padding: 10px;
+    /*height:570px;*/
+    margin-bottom: 30px;
+}
+
+.description {
+  width: 70%;
+  float: left;
+  /*background-color: grey;*/
+  border-right: 2px solid #dc143c; 
+  overflow: auto;
+}
+
+.people {
+  width: 30%;
+  float: left;
+  /*background-color: green;*/
+}
+
+/* Clear floats after the columns */
+.issueBody:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.sectionContainer {
+	width: 100%;
+}
+
+.sectionTitle {
+	float: left;
+	clear: left;
+	position: relative;
+	border-bottom: 1px solid #dc143c;
+	margin-bottom: 10px;
+	/*width: 100%;*/
+}
+
+.sectionContent {
+	width: 100%;
+	float: left;
+	clear: left;
+	margin-bottom: 30px;
+	/*width: 100%;*/
+}
+
+table {
+    font-family: arial, sans-serif;
+    /*border-collapse: collapse;*/
+    width: 100%;
+    color: black;
+}
+
+td, th {
+    /*border: 1px solid #dddddd;*/
+    text-align: left;
+    padding: 8px;
+    /*border-bottom: 1px solid #dc143c !important;*/
+}
+
+th {
+    background-color: #dc143c; 
+    color: white;
+}
+
+.descriptionArea {
+	width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #dc143c;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}

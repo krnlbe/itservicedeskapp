@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = {
-	logIssue: logIssue
+	logIssue: logIssue,
+	getIssue: getIssue
 };
 
 let config = require("../config");
@@ -68,6 +69,89 @@ function logIssue(user, summary, description, severity, priority, attach, callba
 				}
 
 				callback(res);
+			});
+		}
+	});
+}
+
+function getIssue(response, idIssue, callback) {
+	let mysql = require('mysql');
+	let query;
+
+	let con = mysql.createConnection({
+		host: config.database.host,
+		user: config.database.user,
+		password: config.database.passwd,
+		database: config.database.db
+	});
+
+	con.connect(function(err) {
+		if (err) {
+			DEBUG(TERSE, ERROR, "Could not conect to DB. Here's the connection info: " + config.database);
+			utils.serveError(reponse);
+		} else {
+			DEBUG(TERSE, INFO, "Connected to " + config.database.db + "!");
+
+			query = "SELECT idIssue, summary, description, severity, priority, status, reporter, assignee, attach, " + 
+					"DATE_FORMAT(created, '%a %D %b %Y %T') as created, DATE_FORMAT(updated, '%a %D %b %Y %T') as updated " + 
+					"FROM Issue WHERE idIssue = " + idIssue + ";";
+			con.query(query, function (err, result, fields) {
+				let res = false;
+				if (err) { 
+					DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
+					utils.serveError(response);
+				} else {
+					let issueData = {
+						idIssue: result[0].idIssue, 
+						summary: result[0].summary, 
+						description: result[0].description,
+						severity: result[0].severity,
+						priority: result[0].priority, 
+						status: result[0].status,
+						attach: (result[0].attach == "NULL" ? "There is no file attached to this ticket." : result[0].attach),
+						created: result[0].created,
+						updated: result[0].updated
+					};
+
+					let reporterId = result[0].reporter;
+					let assigneeId = result[0].assignee;
+
+					query = "SELECT firstname, lastname FROM User WHERE id = " + reporterId + ";";
+					con.query(query, function (err, result1, fields) {
+						let res = false;
+						if (err) { 
+							DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
+							utils.serveError(response);
+						} else {
+							let reporter = {
+								firstname: result1[0].firstname, 
+								lastname: result1[0].lastname
+							};
+
+							query = "SELECT firstname, lastname FROM User WHERE id = " + assigneeId + ";";
+							con.query(query, function (err, result2, fields) {
+								let res = false;
+								if (err) { 
+									DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
+									utils.serveError(response);
+								} else {
+									let assignee = {
+										firstname: result2[0].firstname, 
+										lastname: result2[0].lastname
+									};
+
+									let sqlData = {
+										issueData: issueData,
+										reporter: reporter,
+										assignee: assignee
+									};
+
+									callback(sqlData);
+								}
+							});
+						}
+					});					
+				}
 			});
 		}
 	});
