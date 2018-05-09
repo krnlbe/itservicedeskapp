@@ -15,7 +15,7 @@ let ERROR = config.debugType.error;
 let TERSE = config.debugLevel.terse;
 let VERBOSE = config.debugType.verbose;
 
-function logIssue(user, summary, description, severity, priority, attach, callback) {
+function logIssue(response, user, summary, description, severity, priority, attach, callback) {
 	let mysql = require('mysql');
 	let query;
 	let status = config.issueStatus.opened;
@@ -43,6 +43,8 @@ function logIssue(user, summary, description, severity, priority, attach, callba
 				} else {
 					if(!utils.isEmpty(result)) {
 						let reporter = result[0].id;
+						summary = summary.replace("'", "\\'");
+						description = description.replace("'", "\\'");
 
 						if(attach) {
 							query = "INSERT INTO Issue (summary, description, severity, priority, reporter, assignee, status, attach, created, updated) VALUES ('"
@@ -57,18 +59,17 @@ function logIssue(user, summary, description, severity, priority, attach, callba
 						con.query(query, function(err, result, fields) {
 							if(err) {
 								DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
-								utils.serveError(reponse);
+								utils.serveError(response);
 								return;
 							} else {
 								DEBUG(TERSE, INFO, "Added new issue to DB!");
+								res = true;
+								callback(res);
 							}
 						});
 
-						res = true;
 					}
 				}
-
-				callback(res);
 			});
 		}
 	});

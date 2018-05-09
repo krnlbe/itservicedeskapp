@@ -139,7 +139,7 @@ app.post('/logIssue', function(request, response) {
 	let priority = request.body.priority;
 	let attach = request.body.file;
 
-	issueProcess.logIssue(user, summary, description, severity, priority, attach, function(result) {
+	issueProcess.logIssue(response, user, summary, description, severity, priority, attach, function(result) {
 		response.end(result + '');
 	});
 });
