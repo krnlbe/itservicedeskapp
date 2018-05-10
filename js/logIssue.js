@@ -89,8 +89,7 @@ function submit() {
           console.log('process sucess');
 
           if(data == true) {
-            let modal = document.getElementById('successModal');
-            modal.style.display = "block";
+            $('#successModal').modal('show');
 
             let btn = document.getElementById("modalOk");
 

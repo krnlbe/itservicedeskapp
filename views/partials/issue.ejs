@@ -3,6 +3,7 @@
 <head>
 	<% include head %>
 	<link href="css/issue.css" rel="stylesheet">
+	<script type="text/javascript" src="js/issue.js"></script>
 </head>
 <body id="page-top">
 	<% include navbar %>
@@ -22,7 +23,7 @@
 						<%= issueData.summary %>
 					</div>
 					<div class="issue-actions">
-						<button class="action-button">Edit</button>
+						<button class="action-button" onclick="editIssue()">Edit</button>
 						<button class="action-button">Comment</button>
 						<button class="action-button">Assign</button>
 						<button class="action-button">In Progress</button>
