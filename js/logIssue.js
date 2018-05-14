@@ -59,8 +59,12 @@ function submit() {
         data: formData,
         processData: false,
         contentType: false,
-        success: function (res) {
-          
+        success: function (response) {
+          if(response == 'success') {
+            console.log('File uploaded successfully!');
+          } else if(response == 'fail') {
+            console.log('Failed to upload file!');
+          }
         }
       });
 

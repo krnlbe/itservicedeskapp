@@ -117,7 +117,7 @@ app.post('/uploadFile', function(request, response) {
 
 	form.on('error', function(err) {
 		DEBUG(TERSE, ERROR, 'Could not save uploaded file ' + form.file.name + '!');
-		response.end('false');		
+		response.end('fail');		
 	});
 
 	form.on('end', function() {
@@ -140,6 +140,24 @@ app.post('/logIssue', function(request, response) {
 	let attach = request.body.file;
 
 	issueProcess.logIssue(response, user, summary, description, severity, priority, attach, function(result) {
+		response.end(result + '');
+	});
+});
+
+app.post('/editIssue', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/editIssue');
+
+	expSession = request.session;
+
+	let user = expSession.username;
+	let idIssue = request.body.idIssue;
+	let summary = request.body.summary;
+	let description = request.body.description;
+	let severity = request.body.severity;
+	let priority = request.body.priority;
+	let attach = request.body.file;
+
+	issueProcess.editIssue(response, idIssue, summary, description, severity, priority, attach, function(result) {
 		response.end(result + '');
 	});
 });

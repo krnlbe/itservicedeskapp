@@ -2,7 +2,8 @@
 
 module.exports = {
 	logIssue: logIssue,
-	getIssue: getIssue
+	getIssue: getIssue,
+	editIssue: editIssue
 };
 
 let config = require("../config");
@@ -43,8 +44,8 @@ function logIssue(response, user, summary, description, severity, priority, atta
 				} else {
 					if(!utils.isEmpty(result)) {
 						let reporter = result[0].id;
-						summary = summary.replace("'", "\\'");
-						description = description.replace("'", "\\'");
+						summary = summary.replace(/'/g, "\\'");
+						description = description.replace(/'/g, "\\'");
 
 						if(attach) {
 							query = "INSERT INTO Issue (summary, description, severity, priority, reporter, assignee, status, attach, created, updated) VALUES ('"
@@ -152,6 +153,61 @@ function getIssue(response, idIssue, callback) {
 							});
 						}
 					});					
+				}
+			});
+		}
+	});
+}
+
+function editIssue(response, idIssue, summary, description, severity, priority, attach, callback) {
+	let mysql = require('mysql');
+	let query;
+	let status = config.issueStatus.opened;
+
+	let con = mysql.createConnection({
+		host: config.database.host,
+		user: config.database.user,
+		password: config.database.passwd,
+		database: config.database.db
+	});
+
+	con.connect(function(err) {
+		if (err) {
+			DEBUG(TERSE, ERROR, "Could not conect to DB. Here's the connection info: " + config.database);
+			utils.serveError(reponse);
+		} else {
+			DEBUG(TERSE, INFO, "Connected to " + config.database.db + "!");
+
+			summary = summary.replace(/'/g, "\\'");
+			description = description.replace(/'/g, "\\'");
+
+			if(attach) {
+				query = "UPDATE Issue SET summary = '" + summary + "', " +
+										  "description = '" + description + "', " +
+										  "severity = '" + severity + "', " +
+										  "priority = '" + priority + "', " +
+										  "attach = '" + attach + "', " +
+										  "updated = NOW() " + 
+									"WHERE idIssue = " + idIssue + ";"; 
+			} else {
+				query = "UPDATE Issue SET summary = '" + summary + "', " +
+										  "description = '" + description + "', " +
+										  "severity = '" + severity + "', " +
+										  "priority = '" + priority + "', " +
+										  "updated = NOW() " + 
+									"WHERE idIssue = " + idIssue + ";"; 
+			}
+
+			let res = false;
+			con.query(query, function(err, result, fields) {
+				if(err) {
+					DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
+					// utils.serveError(response);
+					callback(res);
+				} else {
+					DEBUG(TERSE, INFO, "Updated issue in DB!");
+					res = true;
+					callback(res);
 				}
 			});
 		}

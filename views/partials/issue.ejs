@@ -21,13 +21,25 @@
 						IT Service Desk /  
 						<a href="#">ITSD-<%= issueData.idIssue %></a>
 					</div>
-					<div class="issue-summary">
+					<div class="issue-summary" id="summary">
 						<%= issueData.summary %>
 					</div>
 					<div class="issue-actions">
+						<div class="alert alert-success alert-dismissible fade show" id="editSuccess" role="alert" style="margin-top: 5px; margin-bottom: 1px;">
+						  <strong>Issue successfully updated!</strong>
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+						  </button>
+						</div>
+						<div class="alert alert-danger alert-dismissible fade show" id="editFail" role="alert" style="margin-top: 5px; margin-bottom: 1px;">
+						  <strong>An error was encountered while updating this issue. Please try again!</strong>
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+						  </button>
+						</div>
 						<button class="action-button" onclick="showEditIssue()">Edit</button>
 						<button class="action-button">Comment</button>
-						<button class="action-button">Assign</button>
+						<button class="action-button" onclick="showAssignModal()">Assign</button>
 						<button class="action-button">In Progress</button>
 					</div>
 				</div>
@@ -42,15 +54,15 @@
 									<tbody>
 										<tr>
 											<td>Status:</td>
-											<td><%= issueData.status %></td>
+											<td id="status"><%= issueData.status %></td>
 										</tr>
 										<tr>
 											<td>Severity:</td>
-											<td><%= issueData.severity %></td>
+											<td id="severity"><%= issueData.severity %></td>
 										</tr>
 										<tr>
 											<td>Priority:</td>
-											<td><%= issueData.priority %></td>
+											<td id="priority"><%= issueData.priority %></td>
 										</tr>
 									</tbody>
 								</table>
@@ -59,7 +71,7 @@
 								<h2>Description</h2>
 							</div>
 							<div class="sectionContent">
-								<textarea class="descriptionArea"><%= issueData.description %></textarea>
+								<textarea class="descriptionArea" id="description"><%= issueData.description %></textarea>
 							</div>
 
 							<div class="sectionTitle">
@@ -89,7 +101,7 @@
 									</tr>
 									<tr>
 										<td>Assignee:</td>
-										<td><%= assignee.firstname + ' ' + assignee.lastname %></td>
+										<td id="assignee"><%= assignee.firstname + ' ' + assignee.lastname %></td>
 									</tr>
 								</tbody>
 							</table>
@@ -146,32 +158,37 @@
 	        <form>
 	          <div class="form-group">
 	            <label for="recipient-name" class="col-form-label">Summary:</label>
-	            <input type="text" class="form-control" id="summary" value="<%= issueData.summary %>" onchange="setSummaryValueChange()">
+	            <input type="text" class="form-control" id="editSummary" value="<%= issueData.summary %>">
 	          </div>
 	          <div class="form-group">
 	            <label for="message-text" class="col-form-label">Description:</label>
-	            <textarea class="form-control" id="description"><%= issueData.description %></textarea>
+	            <textarea class="form-control" id="editDescription"><%= issueData.description %></textarea>
 	          </div>
 	          <div class="styled-select slate">
-			  <select id="severity">
-			    <option disabled selected>Severity</option>
-			    <option>Question</option>
-			    <option>Incident</option>
-			    <option>Problem</option>
+			  <select id="editSeverity">
+			  	<%
+					var options = ['Question', 'Incident', 'Problem'];
+					for (var i = 0; i < options.length; i++) {
+					    var selected = (issueData.severity == options[i]) ? "selected" : "";
+					    %><option value="<%=options[i] %>" <%=selected %>><%=options[i] %></option><%
+					}
+				%>
 			  </select>
 			  </div>
 			  <div class="styled-select slate">
-			    <select id="priority">
-			      <option disabled selected>Priority</option>
-			      <option>Low</option>
-			      <option>Medium</option>
-			      <option>High</option>
-			      <option>Urgent</option>
+			    <select id="editPriority">
+			    <%
+					var options = ['Low', 'Medium', 'High', 'Urgent'];
+					for (var i = 0; i < options.length; i++) {
+					    var selected = (issueData.priority == options[i]) ? "selected" : "";
+					    %><option value="<%=options[i] %>" <%=selected %>><%=options[i] %></option><%
+					}
+				%>
 			    </select>
 			  </div>
 			  <div class="upload-btn-wrapper">
 			    <button id="attach" class="attach">Attach File</button>
-				<input id="uploadFile" type="file" />
+				<input id="uploadFile" type="file" onchange="addAttachIcon()"/>
 			  </div>
 	        </form>
 	      </div>
@@ -183,6 +200,33 @@
 	  </div>
 	</div>
 
+	<div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header" style="background-color: #dc143c;">
+	        <h5 class="modal-title" id="assignModalLabel">Edit Issue</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="col-form-label">Assign:</label>
+	            <input type="text" class="form-control" id="assign">
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="modalOk" style="background-color: #dc143c;">OK</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div id="hiddenId" style="display: none"><%= issueData.idIssue %></div>
+
 	<% include footer %>
 	<% include script %>
 
@@ -190,6 +234,9 @@
 		$("#modalOk").on("click", function(e) {
 			submit();
 		});
+
+		$("#editSuccess").hide();
+		$("#editFail").hide();
 	</script>
 
 </body>
