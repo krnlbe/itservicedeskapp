@@ -171,4 +171,12 @@ app.post('/searchIssue', function(request, response) {
 	});
 });
 
+app.post('/assignReq', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/assignReq');
+
+	search.getUsers(response, function (users) {
+		response.end(JSON.stringify(users));
+	});
+});
+
 app.listen(config.server.port);
