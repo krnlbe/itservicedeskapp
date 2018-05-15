@@ -5,9 +5,14 @@
     $(document).keypress(function(e) {
         if(e.which == 13) {
             let signin = document.getElementById('signin');
+            let searchBar = document.getElementById('searchBar');
 
             if(signin) {
                 login();
+            }
+
+            if(searchBar) {
+                search();
             }
         }
     });

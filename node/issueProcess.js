@@ -110,7 +110,7 @@ function getIssue(response, idIssue, callback) {
 						severity: result[0].severity,
 						priority: result[0].priority, 
 						status: result[0].status,
-						attach: (result[0].attach == "NULL" ? "There is no file attached to this ticket." : result[0].attach),
+						attach: result[0].attach,
 						created: result[0].created,
 						updated: result[0].updated
 					};

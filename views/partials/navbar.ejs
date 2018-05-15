@@ -11,10 +11,12 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+          <input id="searchBar" type="text" class="form-control" placeholder="Search" style="width: 98%;">
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#features">Features</a>
+        <li>
+          <button onclick="search()">
+            <img src="/images/icons/search.png" width="28" height="28" style="margin-top: 4px">
+          </button>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#" onclick="logout()">Logout</a>

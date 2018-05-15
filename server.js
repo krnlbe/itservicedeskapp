@@ -14,6 +14,7 @@ let app = express();
 let bodyParser = require('body-parser');
 let formidable = require('formidable');
 let path = require('path');
+let search = require('./node/search');
 
 let expSession;
 
@@ -159,6 +160,14 @@ app.post('/editIssue', function(request, response) {
 
 	issueProcess.editIssue(response, idIssue, summary, description, severity, priority, attach, function(result) {
 		response.end(result + '');
+	});
+});
+
+app.post('/searchIssue', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/searchIssue');
+
+	search.searchIssue(response, request.body.idIssue, function (found) {
+		response.end(found + '');
 	});
 });
 

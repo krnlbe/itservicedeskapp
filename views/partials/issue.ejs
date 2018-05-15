@@ -81,7 +81,11 @@
 								<table>
 									<tbody>
 										<tr>
-											<td><img src="/images/icons/attach.png" width=26 height=26><%= issueData.attach %></td>
+											<td><img src="/images/icons/attach.png" width=26 height=26>
+												<% if(issueData.attach == 'NULL') { %>
+													<span>There is no file attached to this ticket.</span></td>
+												<% } else { %>
+													<a href="/uploads/<%= issueData.attach %>"><%= issueData.attach %></a><% } %></td>
 										</tr>
 									</tbody>
 								</table>
