@@ -30,7 +30,7 @@ function searchIssue(response, idIssue, callback) {
 	con.connect(function(err) {
 		if (err) {
 			DEBUG(TERSE, ERROR, "Could not conect to DB. Here's the connection info: " + config.database);
-			utils.serveError(reponse);
+			utils.serveError(response);
 		} else {
 			DEBUG(TERSE, INFO, "Connected to " + config.database.db + "!");
 
@@ -67,7 +67,7 @@ function getUsers(response, callback) {
 	con.connect(function(err) {
 		if (err) {
 			DEBUG(TERSE, ERROR, "Could not conect to DB. Here's the connection info: " + config.database);
-			utils.serveError(reponse);
+			utils.serveError(response);
 		} else {
 			DEBUG(TERSE, INFO, "Connected to " + config.database.db + "!");
 

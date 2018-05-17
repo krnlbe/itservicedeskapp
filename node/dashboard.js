@@ -28,7 +28,7 @@ function getUserIssues(response, username, callback) {
 	con.connect(function(err) {
 		if (err) {
 			DEBUG(TERSE, ERROR, "Could not conect to DB. Here's the connection info: " + config.database);
-			utils.serveError(reponse);
+			utils.serveError(response);
 		} else {
 			DEBUG(TERSE, INFO, "Connected to " + config.database.db + "!");
 

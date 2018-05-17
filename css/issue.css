@@ -244,3 +244,62 @@ th {
 .attach:hover, .attach:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #dc143c;
 }
+
+.autocomplete-suggestion {
+    background: white;
+    border-radius: 0px;
+    border: 1px solid #ced4da;
+}
+
+.autocomplete-suggestion:hover {
+	border: 1px solid #80bdff;
+}
+
+.autocomplete-selected {
+	border: 1px solid #80bdff;
+}
+
+.commentSection {
+	width: 100%;
+	display: none;
+}
+
+.commentAreaContainer {
+	width: 100%;
+	float: left;
+	clear: left;
+}
+
+.commentArea {
+	width: 50%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #dc143c;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    margin-bottom: 0px;
+}
+
+.userComments {
+	width: 100%;
+	clear: left;
+	color: #484848;
+	font-size: 14px;
+}
+
+.commentContainer {
+	width: 70%;
+	border-bottom: 1px solid #dc143c;
+	margin-top: 20px;
+}
+
+.commentUser {
+	color: #dc143c;
+}
+
+.lastComment {
+	display: none;
+}

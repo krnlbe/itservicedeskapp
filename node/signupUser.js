@@ -28,7 +28,7 @@ function signUp(firstname, lastname, email, username, passwd, callback) {
 	con.connect(function(err) {
 		if (err) {
 			DEBUG(TERSE, ERROR, "Could not conect to DB. Here's the connection info: " + config.database);
-			utils.serveError(reponse);
+			utils.serveError(response);
 		} else {
 			DEBUG(TERSE, INFO, "Connected to " + config.database.db + "!");
 
@@ -37,7 +37,7 @@ function signUp(firstname, lastname, email, username, passwd, callback) {
 				let res = false;
 				if (err) { 
 					DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
-					utils.serveError(reponse);
+					utils.serveError(response);
 				} else {
 					if(utils.isEmpty(result)) {
 						query = "INSERT INTO User (username, firstname, lastname, email, password, created, lastLogin) VALUES ('" 
@@ -45,7 +45,7 @@ function signUp(firstname, lastname, email, username, passwd, callback) {
 						con.query(query, function (err, result, fields) {
 							if(err) {
 								DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
-								utils.serveError(reponse);
+								utils.serveError(response);
 							} else {
 								DEBUG(TERSE, INFO, "Added new user '" + username + "' to DB!");
 							}

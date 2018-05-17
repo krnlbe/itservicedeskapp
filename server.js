@@ -179,4 +179,28 @@ app.post('/assignReq', function(request, response) {
 	});
 });
 
+app.post('/assignIssue', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/assignIssue');
+
+	issueProcess.setAssignee(response, request.body.assignee, request.body.idIssue, function (result) {
+		response.end(result + '');
+	});
+});
+
+app.post('/issueStatus', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/issueStatus');
+
+	issueProcess.setStatus(response, request.body.nextStatus, request.body.idIssue, function (result) {
+		response.end(result + '');
+	});
+});
+
+app.post('/issueComment', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/issueComment');
+
+	issueProcess.setComment(response, request.session.username, request.body.idIssue, request.body.comment, function (result) {
+		response.end(result);
+	});
+});
+
 app.listen(config.server.port);

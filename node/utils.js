@@ -53,7 +53,8 @@ function servePage(request, response, page) {
 				response.render(page, {
 					issueData: result.issueData,
 					reporter: result.reporter,
-					assignee: result.assignee
+					assignee: result.assignee,
+					commentData: result.commentData
 				});
 			});
 		} else {

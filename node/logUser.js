@@ -30,7 +30,7 @@ function logUser(response, username, passwd, callback) {
 	con.connect(function(err) {
 		if (err) {
 			DEBUG(TERSE, ERROR, "Could not conect to DB. Here's the connection info: " + config.database);
-			utils.serveError(reponse);
+			utils.serveError(response);
 		} else {
 			DEBUG(TERSE, INFO, "Connected to " + config.database.db + "!");
 
@@ -39,7 +39,7 @@ function logUser(response, username, passwd, callback) {
 				let res = false;
 				if (err) { 
 					DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
-					utils.serveError(reponse);
+					utils.serveError(response);
 				} else {
 					if(!utils.isEmpty(result)) {
 						res = (result[0].password.localeCompare(md5(passwd)) == 0);
@@ -49,7 +49,7 @@ function logUser(response, username, passwd, callback) {
 							con.query(query, function(err, result, fields) {
 								if(err) {
 									DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
-									utils.serveError(reponse);
+									utils.serveError(response);
 								} else {
 									DEBUG(TERSE, INFO, 'User "' + username + '" has been logged into the App!');
 									DEBUG(TERSE, INFO, 'Updated "lastLogin" for user "' + username + '"!');
