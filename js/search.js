@@ -10,7 +10,7 @@ function search() {
 		};
 
 		$.ajax({
-			url: "/searchIssue",
+			url: "/getIssue",
 			type: "POST",
 			dataType: "json",
 			data: JSON.stringify(searchData),
@@ -24,13 +24,29 @@ function search() {
 				if(response) {
 					window.location.replace('/ITSD-' + searchText);
 				}
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
-
 			}
-	});
+		});
+	} else if(searchText) {
+		let searchData = {
+			searchToken: searchText
+		};
+		$.ajax({
+			url: "/searchIssues",
+			type: "GET",
+			dataType: "json",
+			data: JSON.stringify(searchData),
+			contentType: "application/json",
+			cache: false,
+			timeout: 5000,
+			complete: function() {
+				console.log('process complete');
+			},
+			success: function (response) {
+				$(document.body).html(response);
+			}
+		});
 	} else {
-
+		window.location.replace("/search");
 	}
 
 	

@@ -10,6 +10,7 @@ module.exports = {
 let config = require('../config.js');
 let dashboard = require('./dashboard');
 let issueProcess = require('./issueProcess');
+let search = require('./search');
 
 let INFO = config.debugType.info;
 let WARN = config.debugType.warning;
@@ -55,6 +56,18 @@ function servePage(request, response, page) {
 					reporter: result.reporter,
 					assignee: result.assignee,
 					commentData: result.commentData
+				});
+			});
+		} else if(page == 'partials/search') {
+			search.getAllIssues(response, '', function(result) {
+				response.render(page, {
+					issueData: result
+				});
+			});
+		} else if(page == 'partials/searchIssues') {
+			search.getAllIssues(response, request.body.searchToken, function(result) {
+				response.render('partials/search', {
+					issueData: result
 				});
 			});
 		} else {

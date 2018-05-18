@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include head %>
+	<link href="css/search.css" rel="stylesheet">
+</head>
+<body>
+	<% include navbar %>
+
+    <div class="bgr">
+    	<div id="msform">
+    		<div class="searchContainer">
+    			<div class="header">
+    				Search Results: <span id="searchedItem"></span>
+    			</div>
+    			<div class="filter">
+
+    			</div>
+    			<div class="results">
+    				<table>
+    					<tbody>
+    						<tr>
+    							<th>IssueID</th>
+    							<th>Summary</th>
+    							<th>Assignee</th>
+    							<th>Reporter</th>
+    							<th>Severity</th>
+    							<th>Priority</th>   
+    							<th>Created</th>
+    							<th>Updated</th> 							
+    						</tr>
+
+    						<% issueData.forEach(function(issue) { %>
+	    						<tr>
+	    							<td><a href="/ITSD-<%= issue.idIssue %>" style="color: black; text-decoration: underline;">ITSD-<%= issue.idIssue %></a></td>
+	    							<td><%= issue.summary %></td>
+	    							<td><%= issue.assignee %></td>
+	    							<td><%= issue.reporter %></td>
+	    							<td><%= issue.severity %></td>
+	    							<td><%= issue.priority %></td>
+	    							<td><%= issue.created %></td>
+	    							<td><%= issue.updated %></td>
+	    						</tr>
+	    					<% }); %>
+    					</tbody>
+    				</table>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	
+	<% include footer %>
+	<% include script %>
+
+</body>
+</html>

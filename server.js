@@ -72,6 +72,17 @@ app.get('/ITSD-*', function(request, response) {
 	servePage(request, response, 'partials/issue');
 });
 
+app.get('/search', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/search');
+	servePage(request, response, 'partials/search');
+});
+
+app.get('/searchIssues', function(request, response) {
+			console.log("############################### " + request.body);
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/searchIssues');
+	servePage(request, response, 'partials/searchIssues');
+});
+
 app.post('/logUser', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/logUser');
 
@@ -163,7 +174,7 @@ app.post('/editIssue', function(request, response) {
 	});
 });
 
-app.post('/searchIssue', function(request, response) {
+app.post('/getIssue', function(request, response) {
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/searchIssue');
 
 	search.searchIssue(response, request.body.idIssue, function (found) {
