@@ -78,9 +78,18 @@ app.get('/search', function(request, response) {
 });
 
 app.get('/searchIssues', function(request, response) {
-			console.log("############################### " + request.body);
 	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/searchIssues');
 	servePage(request, response, 'partials/searchIssues');
+});
+
+app.get('/myIssues', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/myIssues');
+	servePage(request, response, 'partials/myIssues');
+});
+
+app.get('/reportedByMe', function(request, response) {
+	DEBUG(TERSE, INFO, request.method + ' ' + config.server.host + ':' + config.server.port + '/reportedByMe');
+	servePage(request, response, 'partials/reportedByMe');
 });
 
 app.post('/logUser', function(request, response) {

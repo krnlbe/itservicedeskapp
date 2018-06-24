@@ -1,25 +1,16 @@
 .bgr {
   position: relative;
   width: 100%;
-  /*height: 100%*/
-  /*padding-top: 150px;*/
-  /*padding-bottom: 00px;*/
-  /*height: 100%;*/
   color: #dc143c;
   background: url("../img/bg-pattern.png"), #7b4397;
   background: url("../img/bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc2430);
   background: url("../img/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
-  /*overflow: auto;*/
 }
 
 #msform {
-	width: 65%;
-	/*height: 100%;*/
+	width: 90%;
 	margin: 30px auto;
-	/*text-align: center;*/
-	/*position: relative;*/
 	padding: 30px 0 0 0;
-	/*overflow:auto;*/
 	margin-bottom: 0px;
 }
 
@@ -31,7 +22,6 @@
 	padding: 20px 20px;
 	box-sizing: border-box;
 	width: 100%;
-	/*height: 100%;*/
 	overflow: auto;
 }
 
@@ -42,7 +32,6 @@ hr {
 
 .header {
 	width: 100%;
-	/*height: 140px;*/
 	border-bottom: 2px solid #dc143c;
 }
 
@@ -74,7 +63,6 @@ hr {
 
 .issue-actions {
 	width: 100%;
-	/*height: 100%;*/
 	float: left;
 }
 
@@ -106,14 +94,12 @@ hr {
 	width: 100%;
     float: left;
     padding: 10px;
-    /*height:570px;*/
     margin-bottom: 30px;
 }
 
 .description {
   width: 70%;
   float: left;
-  /*background-color: grey;*/
   border-right: 2px solid #dc143c; 
   overflow: auto;
 }
@@ -121,10 +107,8 @@ hr {
 .people {
   width: 30%;
   float: left;
-  /*background-color: green;*/
 }
 
-/* Clear floats after the columns */
 .issueBody:after {
     content: "";
     display: table;

@@ -4,6 +4,14 @@
     <a class="navbar-brand js-scroll-trigger" href="/">Home</a>
     <a class="navbar-brand js-scroll-trigger" href="dashboard">Dashboard</a>
     <a class="navbar-brand js-scroll-trigger" href="logIssue">Create</a>
+    <div class="navbar-brand js-scroll-trigger">
+      <button id="issuesBtn" onclick="issuesTrigger()" class="navbar-brand js-scroll-trigger">Issues</button>
+        <div id="issuesDropdown" class="dropdown-content">
+          <a href="search">Search for Issues</a>
+          <a href="myIssues">My Issues</a>
+          <a href="reportedByMe">Reported By Me</a>
+        </div>
+    </div>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
       <i class="fa fa-bars"></i>

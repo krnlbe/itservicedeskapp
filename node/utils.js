@@ -65,7 +65,19 @@ function servePage(request, response, page) {
 				});
 			});
 		} else if(page == 'partials/searchIssues') {
-			search.getAllIssues(response, request.body.searchToken, function(result) {
+			search.getAllIssues(response, request.query.searchToken, function(result) {
+				response.render('partials/search', {
+					issueData: result
+				});
+			});
+		} else if(page == 'partials/myIssues') {
+			search.getMyIssues(response, request.session.username, function(result) {
+				response.render('partials/search', {
+					issueData: result
+				});
+			});
+		} else if(page == 'partials/reportedByMe') {
+			search.getReportedByMe(response, request.session.username, function(result) {
 				response.render('partials/search', {
 					issueData: result
 				});

@@ -9,7 +9,7 @@
 }
 
 #msform {
-  width: 65%;
+  width: 95%;
   margin: 30px auto;
   padding: 30px 0 0 0;
   margin-bottom: 0px;
@@ -43,6 +43,10 @@ table {
     color: black;
 }
 
+table.filterTable {
+  width: 40%;
+}
+
 td, th {
     text-align: left;
     padding: 8px;
@@ -52,4 +56,14 @@ td, th {
 th {
     background-color: #dc143c; 
     color: white;
+    cursor: pointer;
+}
+
+.filter {
+    max-width: 130px;
+}
+
+input::-webkit-input-placeholder {
+  color: #dc143c;
+  opacity: 0.5;
 }

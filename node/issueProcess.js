@@ -254,7 +254,7 @@ function setAssignee(response, assignee, idIssue, callback) {
 					callback(res);
 				} else {
 					if(!utils.isEmpty(result)) {
-						query = "UPDATE Issue SET assignee = " + result[0].id + " WHERE idIssue = " + idIssue + ";";
+						query = "UPDATE Issue SET assignee = " + result[0].id + ", updated = NOW() WHERE idIssue = " + idIssue + ";";
 						con.query(query, function(err, result, fields) {
 							if(err) {
 								DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
@@ -304,7 +304,7 @@ function setStatus(response, nextStatus, idIssue, callback) {
 			}
 
 			let res = false;
-			query = "UPDATE Issue SET status = '" + status + "' WHERE idIssue = " + idIssue + ";";
+			query = "UPDATE Issue SET status = '" + status + "', updated = NOW() WHERE idIssue = " + idIssue + ";";
 			con.query(query, function(err, result, fields) {
 				if(err) {
 					DEBUG(TERSE, ERROR, "Something went wrong with the DB connection. Here's the query: " + query);
@@ -355,7 +355,7 @@ function setComment(response, username, idIssue, commentText, callback) {
 											 currentTime.getHours() + ":" + 
 											 currentTime.getMinutes() + ":" + 
 											 (currentTime.getSeconds() < 10 ? '0' + currentTime.getSeconds() : currentTime.getSeconds());						
-
+						commentText = commentText.replace(/'/g, "\\'");
 						query = "INSERT INTO Comment (text, issue, user, date) VALUES ('" +
 								commentText + "', " + idIssue + ", " + idUser + ", '" + timestampForDB + "');";
 

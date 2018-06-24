@@ -33,16 +33,18 @@ function search() {
 		$.ajax({
 			url: "/searchIssues",
 			type: "GET",
-			dataType: "json",
-			data: JSON.stringify(searchData),
-			contentType: "application/json",
+			data: searchData,
 			cache: false,
 			timeout: 5000,
 			complete: function() {
 				console.log('process complete');
 			},
 			success: function (response) {
+				// alert(response);
 				$(document.body).html(response);
+			},
+			error: function (xhr, status, error) {
+				alert(error);
 			}
 		});
 	} else {

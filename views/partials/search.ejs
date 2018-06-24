@@ -17,17 +17,31 @@
 
     			</div>
     			<div class="results">
-    				<table>
+    				<table id="results">
     					<tbody>
-    						<tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <input class="filter" type="text" id="filterBySummary" onkeyup="filterBySummary()" placeholder="Filter by Summary">
+                                </td>
+                                <td>
+                                    <input class="filter" type="text" id="filterByAssignee" onkeyup="filterByAssignee()" placeholder="Filter by Assignee">
+                                </td>
+                                <td>
+                                    <input class="filter" type="text" id="filterByReporter" onkeyup="filterByReporter()" placeholder="Filter by Reporter">
+                                </td>
+                            </tr>
+                        	<tr>
     							<th>IssueID</th>
-    							<th>Summary</th>
-    							<th>Assignee</th>
-    							<th>Reporter</th>
-    							<th>Severity</th>
-    							<th>Priority</th>   
-    							<th>Created</th>
-    							<th>Updated</th> 							
+    							<th onclick="sortTable(1)">Summary</th>
+    							<th onclick="sortTable(2)">Assignee</th>
+    							<th onclick="sortTable(3)">Reporter</th>
+    							<th onclick="sortTable(4)">Severity</th>
+    							<th onclick="sortTable(5)">Priority</th>   
+                                <th onclick="sortTable(6)">Status</th>   
+    							<th onclick="sortTable(7)">Created</th>
+    							<th onclick="sortTable(8)">Updated</th> 							
     						</tr>
 
     						<% issueData.forEach(function(issue) { %>
@@ -38,6 +52,7 @@
 	    							<td><%= issue.reporter %></td>
 	    							<td><%= issue.severity %></td>
 	    							<td><%= issue.priority %></td>
+                                    <td><%= issue.status %></td>
 	    							<td><%= issue.created %></td>
 	    							<td><%= issue.updated %></td>
 	    						</tr>
@@ -51,6 +66,6 @@
 	
 	<% include footer %>
 	<% include script %>
-
+    <script src="js/searchFunctionalities.js"></script>
 </body>
 </html>
